@@ -2,8 +2,7 @@
 phase: 01-fundacao
 plan: 05
 subsystem: layout
-status: partial
-checkpoint_pending: Task 3 — verificacao visual
+status: complete
 tags: [layout, sidebar, bottom-nav, header, navigation, responsive]
 dependency_graph:
   requires: ["01-02", "01-04"]
@@ -37,7 +36,7 @@ decisions:
 metrics:
   duration: "~25min"
   completed: "2026-04-07"
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   files_created: 10
   files_modified: 1
@@ -55,7 +54,7 @@ metrics:
 |------|--------|--------|-----------|
 | Task 1: Sidebar, Bottom Nav e Header | DONE | 8b56e37 | 4 componentes de layout com design system exato |
 | Task 2: Layout dashboard e páginas placeholder | DONE | 4bc313b | AppShell, 4 páginas placeholder, redirect da home |
-| Task 3: Verificação visual | PENDING | — | Aguardando checkpoint humano |
+| Task 3: Verificação visual | DONE | aprovado | Login funcional e layout do dashboard confirmados pelo fundador |
 
 ---
 
