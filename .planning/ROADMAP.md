@@ -32,9 +32,9 @@ Secretária executiva com IA para empreendedores brasileiros. MVP para uso próp
 **Plans**: 5 plans
 
 Plans:
-- [ ] 01-01: Setup do projeto Next.js e dependências
-- [ ] 01-02: Design system (CSS vars, Tailwind, grain, fontes, componentes base)
-- [ ] 01-03: Supabase schema SQL + RLS + rate limiting function
+- [x] 01-01: Setup do projeto Next.js e dependências
+- [x] 01-02: Design system (CSS vars, Tailwind, grain, fontes, componentes base)
+- [x] 01-03: Supabase schema SQL + RLS + rate limiting function
 - [ ] 01-04: Auth pages + middleware
 - [ ] 01-05: Layout do dashboard (sidebar + bottom nav mobile)
 
