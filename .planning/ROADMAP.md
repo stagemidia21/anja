@@ -6,7 +6,7 @@ Secretária executiva com IA para empreendedores brasileiros. MVP para uso próp
 
 ## Phases
 
-- [ ] **Phase 1: Fundação** - Setup Next.js, design system, Supabase auth, layout do dashboard
+- [x] **Phase 1: Fundação** - Setup Next.js, design system, Supabase auth, layout do dashboard (completed 2026-04-07)
 - [ ] **Phase 2: Core IA** - Chat com streaming, tool use, histórico, rate limiting
 - [ ] **Phase 3: Google Calendar** - OAuth2 completo, tools de Calendar, página /agenda
 - [ ] **Phase 4: Tarefas** - CRUD kanban, drag and drop, tools de tarefas no chat
@@ -35,8 +35,8 @@ Plans:
 - [x] 01-01: Setup do projeto Next.js e dependências
 - [x] 01-02: Design system (CSS vars, Tailwind, grain, fontes, componentes base)
 - [x] 01-03: Supabase schema SQL + RLS + rate limiting function
-- [ ] 01-04: Auth pages + middleware
-- [ ] 01-05: Layout do dashboard (sidebar + bottom nav mobile)
+- [x] 01-04: Auth pages + middleware
+- [x] 01-05: Layout do dashboard (sidebar + bottom nav mobile)
 
 ### Phase 2: Core IA
 **Goal**: Chat funcional com streaming e tool use. A Anja responde em PT-BR executivo, histórico persiste entre sessões, e rate limiting por plano funciona.
