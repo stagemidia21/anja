@@ -1,7 +1,15 @@
-export default function ChatPage() {
+import { createClient } from '@/lib/supabase/server'
+import { loadMessages } from '@/lib/chat/persistence'
+import { ChatWindow } from '@/components/chat/chat-window'
+
+export default async function ChatPage() {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  const initialMessages = user ? await loadMessages(supabase, user.id) : []
+
   return (
-    <div className="space-y-4">
-      <p className="text-muted text-sm">Chat com a Anja — disponivel na Fase 2.</p>
+    <div className="flex flex-col h-[calc(100vh-3.5rem)] -m-4 md:-m-6 -mb-20 md:-mb-6">
+      <ChatWindow initialMessages={initialMessages} />
     </div>
-  );
+  )
 }

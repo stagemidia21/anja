@@ -16,6 +16,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const supabase = createBrowserClient();
 
@@ -46,42 +47,40 @@ export function AuthForm({ mode }: AuthFormProps) {
 
     if (mode === 'login') {
       result = await supabase.auth.signInWithPassword({ email, password });
-    } else {
-      result = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: window.location.origin + '/auth/callback',
-        },
-      });
-    }
 
-    if (result.error) {
-      const msg = result.error.message.toLowerCase();
-      if (msg.includes('invalid') || msg.includes('credentials') || msg.includes('password')) {
+      if (result.error) {
         setError('E-mail ou senha incorretos. Verifique seus dados e tente novamente.');
-      } else {
-        setError('Algo deu errado. Aguarde alguns segundos e tente novamente.');
+        setLoading(false);
+        return;
       }
-      setLoading(false);
-      return;
-    }
 
-    // Login bem-sucedido — o middleware redirecionará para /dashboard
-    // Para signup, o Supabase pode exigir confirmação por e-mail antes de criar sessão
-    if (mode === 'login') {
       window.location.href = '/dashboard';
     } else {
-      // Signup: se não precisar de confirmação, também redireciona
-      if (result.data.session) {
-        window.location.href = '/dashboard';
-      } else {
-        // Confirmação de e-mail necessária — mostrar mensagem ao usuário
-        setError(null);
+      // Signup via API route (service role — sem confirmação de e-mail)
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        setError(json.error || 'Erro ao criar conta. Tente novamente.');
         setLoading(false);
-        // Reutilizamos o campo de erro como feedback positivo aqui
-        // Idealmente seria um estado separado, mas segue o escopo do plano
+        return;
       }
+
+      // Conta criada — fazer login automático
+      const loginResult = await supabase.auth.signInWithPassword({ email, password });
+
+      if (loginResult.error) {
+        setSuccess('Conta criada! Entre com seu e-mail e senha.');
+        setLoading(false);
+        return;
+      }
+
+      window.location.href = '/dashboard';
     }
   }
 
@@ -191,9 +190,12 @@ export function AuthForm({ mode }: AuthFormProps) {
           </div>
         </div>
 
-        {/* Mensagem de erro */}
+        {/* Mensagens de feedback */}
         {error && (
           <p className="text-sm text-danger mt-3">{error}</p>
+        )}
+        {success && (
+          <p className="text-sm text-success mt-3">{success}</p>
         )}
 
         {/* CTA submit */}
