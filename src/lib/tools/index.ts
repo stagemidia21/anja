@@ -11,7 +11,7 @@ export const anjaTools = {
       description: z.string().optional().describe('Descrição do evento'),
       location: z.string().optional().describe('Local do evento'),
     }),
-    execute: async (_args) => {
+    execute: async () => {
       try {
         return { success: false, error: 'Google Calendar ainda não conectado. Disponível na próxima atualização.' }
       } catch {
@@ -26,7 +26,7 @@ export const anjaTools = {
       start_date: z.string().describe('Data de início no formato YYYY-MM-DD'),
       end_date: z.string().describe('Data de término no formato YYYY-MM-DD'),
     }),
-    execute: async (_args) => {
+    execute: async () => {
       try {
         return { success: false, error: 'Google Calendar ainda não conectado. Disponível na próxima atualização.' }
       } catch {
@@ -44,7 +44,7 @@ export const anjaTools = {
       due_date: z.string().optional().describe('Data de vencimento no formato YYYY-MM-DD'),
       note: z.string().optional().describe('Observação adicional'),
     }),
-    execute: async (_args) => {
+    execute: async () => {
       try {
         return { success: false, error: 'Gestão de tarefas disponível na próxima atualização.' }
       } catch {
@@ -59,7 +59,7 @@ export const anjaTools = {
       status: z.enum(['fazer', 'fazendo', 'feito']).optional().describe('Filtrar por status'),
       priority: z.enum(['alta', 'media', 'baixa']).optional().describe('Filtrar por prioridade'),
     }),
-    execute: async (_args) => {
+    execute: async () => {
       try {
         return { success: false, error: 'Gestão de tarefas disponível na próxima atualização.' }
       } catch {
