@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createBrowserClient } from '@/lib/supabase/client'
 import { Plus, CheckCircle2, Circle, ArrowRight, Trash2 } from 'lucide-react'
 
@@ -45,22 +45,20 @@ export default function TarefasPage() {
 
   const supabase = createBrowserClient()
 
-  async function load() {
-    if (loaded) return
-    setLoading(true)
-    const { data } = await supabase
-      .from('tasks')
-      .select('*')
-      .order('position', { ascending: true })
-    setTasks(data ?? [])
-    setLoaded(true)
-    setLoading(false)
-  }
-
-  // Load on mount
-  if (!loaded && !loading) {
+  useEffect(() => {
+    async function load() {
+      setLoading(true)
+      const { data } = await supabase
+        .from('tasks')
+        .select('*')
+        .order('position', { ascending: true })
+      setTasks(data ?? [])
+      setLoaded(true)
+      setLoading(false)
+    }
     load()
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   async function addTask(e: React.FormEvent) {
     e.preventDefault()
