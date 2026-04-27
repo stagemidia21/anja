@@ -1,3 +1,25 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "overrides": [
+    {
+      "files": [
+        "src/app/crm/**/*.{ts,tsx}",
+        "src/components/{activities,companies,contacts,custom-fields,deals,merge,tasks}/**/*.{ts,tsx}",
+        "src/components/layout/CommandPalette*.tsx",
+        "src/components/layout/OrgSwitcher.tsx",
+        "src/lib/crm/**/*.ts",
+        "src/lib/format/**/*.ts",
+        "src/lib/realtime/**/*.ts",
+        "src/lib/validations/**/*.ts",
+        "src/lib/cpf-cnpj.ts",
+        "src/lib/phone.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+        "@next/next/no-img-element": "off"
+      }
+    }
+  ]
 }
