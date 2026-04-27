@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/layout/sidebar';
 import { BottomNav } from '@/components/layout/bottom-nav';
 import { Header } from '@/components/layout/header';
+import { ToastProvider } from '@/components/ui/toast';
 
 export default async function DashboardLayout({
   children,
@@ -21,7 +22,7 @@ export default async function DashboardLayout({
   // Buscar profile e plano
   const { data: profile } = await supabase
     .from('profiles')
-    .select('full_name')
+    .select('full_name, onboarded_at')
     .eq('id', user.id)
     .single();
 
@@ -31,21 +32,28 @@ export default async function DashboardLayout({
     .eq('user_id', user.id)
     .single();
 
+  // Redireciona usuários novos para o onboarding
+  if (!profile?.onboarded_at) {
+    redirect('/onboarding')
+  }
+
   const userData = {
     name: profile?.full_name || user.email?.split('@')[0] || 'Usuario',
     plan: userPlan?.plan || 'free',
   };
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar user={userData} />
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header user={userData} />
-        <main className="flex-1 p-4 md:p-6 pb-20 md:pb-6">
-          {children}
-        </main>
+    <ToastProvider>
+      <div className="flex min-h-screen">
+        <Sidebar user={userData} />
+        <div className="flex-1 flex flex-col min-w-0">
+          <Header user={userData} />
+          <main className="flex-1 p-4 md:p-6 pb-20 md:pb-6">
+            {children}
+          </main>
+        </div>
+        <BottomNav />
       </div>
-      <BottomNav />
-    </div>
+    </ToastProvider>
   );
 }

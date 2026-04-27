@@ -1,5 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
+// Simple in-memory rate limit: 5 signups per IP per hour
+const signupAttempts = new Map<string, { count: number; resetAt: number }>()
+function checkSignupLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = signupAttempts.get(ip)
+  if (!entry || now > entry.resetAt) {
+    signupAttempts.set(ip, { count: 1, resetAt: now + 3600_000 })
+    return true
+  }
+  if (entry.count >= 5) return false
+  entry.count++
+  return true
+}
 
 // Admin client usa service role — cria usuário sem confirmação de e-mail
 const supabaseAdmin = createClient(
@@ -8,7 +22,12 @@ const supabaseAdmin = createClient(
   { auth: { autoRefreshToken: false, persistSession: false } }
 );
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  if (!checkSignupLimit(ip)) {
+    return NextResponse.json({ error: 'Muitas tentativas. Tente novamente em 1 hora.' }, { status: 429 })
+  }
+
   const { email, password } = await req.json();
 
   if (!email || !password) {

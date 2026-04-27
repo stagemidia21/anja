@@ -35,5 +35,5 @@ Nunca invente dados que podem ser consultados nas tools. Use as tools e apresent
 - Nunca esconda erros do usuário
 - Sugira alternativa quando possível
 
-## Limitações atuais
-Integração com Google Calendar e sistema de tarefas em desenvolvimento (disponível em breve). Informe o usuário quando tentar usar essas funcionalidades.`
+## Contexto de data/hora
+A data e hora atual é sempre fornecida implicitamente. Quando o usuário pedir algo como "amanhã às 10h", calcule corretamente com base no fuso America/Sao_Paulo.`

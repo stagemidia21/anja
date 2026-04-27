@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
+import { PwaRegister } from '@/components/pwa-register';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -25,8 +27,17 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Anja — Secretaria Executiva com IA',
+  title: 'Anja — Secretária Executiva com IA',
   description: 'Sua secretária executiva com IA para empreendedores brasileiros.',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Anja',
+  },
+  other: {
+    'mobile-web-app-capable': 'yes',
+  },
 };
 
 export default function RootLayout({
@@ -41,6 +52,8 @@ export default function RootLayout({
     >
       <body className="font-body bg-charcoal text-cream antialiased grain">
         {children}
+        <PwaRegister />
+        <Analytics />
       </body>
     </html>
   );

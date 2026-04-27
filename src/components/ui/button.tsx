@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary:   'bg-gold/10 border border-gold/20 text-gold hover:bg-gold/20',
+  primary:   'bg-gold text-charcoal hover:bg-gold-light font-semibold',
   secondary: 'bg-char-3 border border-char-3 text-cream hover:bg-char-3/80',
   ghost:     'text-muted hover:text-cream hover:bg-char-3',
 };
@@ -29,11 +29,11 @@ export function Button({
   return (
     <button
       disabled={isDisabled}
-      className={`px-4 py-2.5 text-sm font-normal rounded-lg transition-colors duration-150 inline-flex items-center justify-center gap-2 ${variantClasses[variant]} ${isDisabled ? 'opacity-40 cursor-not-allowed' : ''} ${className}`}
+      className={`px-4 py-2.5 text-sm rounded-lg transition-all duration-150 inline-flex items-center justify-center gap-2 ${variantClasses[variant]} ${isDisabled ? 'opacity-40 cursor-not-allowed' : ''} ${className}`}
       {...props}
     >
       {loading && <Spinner />}
-      <span className={loading ? 'opacity-60' : ''}>{children}</span>
+      <span className={loading ? 'opacity-70' : ''}>{children}</span>
     </button>
   );
 }
