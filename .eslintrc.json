@@ -3,7 +3,8 @@
   "overrides": [
     {
       "files": [
-        "src/app/crm/**/*.{ts,tsx}",
+        "src/app/(dashboard)/crm/**/*.{ts,tsx}",
+        "src/app/setup/**/*.{ts,tsx}",
         "src/components/{activities,companies,contacts,custom-fields,deals,merge,tasks}/**/*.{ts,tsx}",
         "src/components/layout/CommandPalette*.tsx",
         "src/components/layout/OrgSwitcher.tsx",
