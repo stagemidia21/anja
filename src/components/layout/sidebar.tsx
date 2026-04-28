@@ -61,7 +61,7 @@ export function Sidebar({ user }: SidebarProps) {
               icon={item.icon}
               label={item.label}
               href={item.href}
-              active={pathname === item.href}
+              active={item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')}
             />
           ))}
         </div>
@@ -73,7 +73,7 @@ export function Sidebar({ user }: SidebarProps) {
               icon={item.icon}
               label={item.label}
               href={item.href}
-              active={pathname === item.href}
+              active={item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')}
             />
           ))}
         </div>

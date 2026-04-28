@@ -24,7 +24,7 @@ export function BottomNav() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-char-2/95 backdrop-blur-md border-t border-char-3 flex items-center justify-around px-1 safe-area-pb md:hidden">
       {navItems.map((item) => {
-        const active = pathname === item.href;
+        const active = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/');
         const Icon = item.icon;
         return (
           <Link
