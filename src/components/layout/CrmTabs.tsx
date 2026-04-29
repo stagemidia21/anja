@@ -17,7 +17,7 @@ export function CrmTabs() {
   const pathname = usePathname()
 
   return (
-    <nav className="flex gap-1 flex-wrap items-center">
+    <nav className="flex gap-1 items-center flex-nowrap">
       {TABS.map(({ href, label, icon: Icon, exact, prefix }) => {
         const active = exact
           ? pathname === href
@@ -29,7 +29,7 @@ export function CrmTabs() {
             key={href}
             href={href}
             className={
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-colors ' +
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-colors whitespace-nowrap shrink-0 ' +
               (active
                 ? 'bg-gold/15 text-gold border border-gold/30'
                 : 'text-cream/70 hover:text-cream hover:bg-char-3 border border-transparent')

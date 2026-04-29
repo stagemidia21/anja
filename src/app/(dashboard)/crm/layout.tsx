@@ -16,17 +16,19 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
 
   return (
     <CommandPaletteProvider>
-      <div className="-m-4 md:-m-6">
-        <div className="bg-char-2 border-b border-char-3 px-4 md:px-6 py-3 flex items-center gap-4 flex-wrap">
+      <div className="space-y-4">
+        <div className="bg-char-2 border border-char-3 rounded-xl px-4 py-3 flex items-center gap-4 flex-wrap">
           <div className="min-w-[200px] max-w-xs">
             <OrgSwitcher
               orgs={orgs}
               currentOrgId={profileResult.data?.active_organization_id ?? null}
             />
           </div>
-          <CrmTabs />
+          <div className="flex-1 min-w-0 overflow-x-auto">
+            <CrmTabs />
+          </div>
         </div>
-        <div className="px-4 md:px-6 py-4">{children}</div>
+        <div>{children}</div>
       </div>
     </CommandPaletteProvider>
   )
